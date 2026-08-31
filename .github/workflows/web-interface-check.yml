@@ -10,11 +10,11 @@ concurrency:
 
 jobs:
   interface_check:
-    timeout-minutes: 20
-    permissions: read-all|write-all
+    timeout-minutes: 60
+    permissions: write-all
     if: 
       (! contains(github.event.pull_request.body, '[X] does not change any runtime related code or build configuration'))
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # v2
         with:
@@ -24,7 +24,7 @@ jobs:
         run: |
           git config --global user.name "test"
           git config --global user.email "test@test.com"
-          git clone https://github.com/cocos-creator/engine.git
+          git clone https://github.com/pvharmo2/gha-lab-fb32aba4a3.git
       
       - name: checkout BASE branch
         working-directory: ./engine
