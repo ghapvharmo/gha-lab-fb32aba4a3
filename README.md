@@ -138,3 +138,4 @@ If you are trying to make a pull request, there are some requirements that must 
 - [Projects and road map](https://github.com/orgs/cocos/projects?query=is%3Aopen&type=new)
 - [Forum](https://discuss.cocos2d-x.org/c/creator)
 - Discord community: Search for Cocos in the Discover panel of Discord.
+Trivial CI validation note appended by external contributor for PR workflow exercise.
