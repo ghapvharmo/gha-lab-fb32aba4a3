@@ -1,0 +1,37 @@
+name: <Web> npm test
+
+on: [push, pull_request]
+
+# github.head_ref is only defined on pull_request events
+concurrency:
+  group: ${{ github.workflow }}-${{ github.actor }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  npm_test:
+    timeout-minutes: 20
+    if: 
+      (! contains(github.event.pull_request.body, '[X] does not change any runtime related code or build configuration'))
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@dc323e67f16fb5f7663d20ff7941f27f5809e9b6 # v2
+
+    - uses: actions/setup-node@1f8c6b94b26d0feae1e387ca63ccbdc44d27b561 # v2
+      with:
+        node-version: '14.19'
+
+    - name: install gulp
+      run: |
+        npm install -g gulp
+        
+    - name: npm install
+      run: |
+        npm install
+       
+    - name: build-debug-infos
+      run: |
+        gulp build-debug-infos
+        
+    - name: run test
+      run: |
+        npm test
